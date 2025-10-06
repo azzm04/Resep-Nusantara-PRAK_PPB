@@ -10,11 +10,6 @@ import MobileNavbar from './components/navbar/MobileNavbar';
 import './index.css';
 import PWABadge from './PWABadge';
 
-// Hapus import yang tidak perlu jika ada
-// import { ResepMakanan } from './data/makanan';
-// import { ResepMinuman } from './data/minuman';
-// import MakananRecipeGrid from './components/makanan/RecipeGrid';
-// import MinumanRecipeGrid from './components/minuman/RecipeGrid';
 
 function AppRoot() {
   const [showSplash, setShowSplash] = useState(true);

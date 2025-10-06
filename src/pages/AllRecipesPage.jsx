@@ -40,7 +40,7 @@ export default function AllRecipesPage() {
     if (showFavorites) {
       // Tampilkan hanya resep favorit
       recipes = allRecipes.filter(recipe => 
-        favorites.some(fav => fav.name === recipe.name && fav.type === recipe.type)
+        favorites.some(fav => fav.id === recipe.id && fav.type === recipe.type)
       );
     } else {
       if (activeFilter === 'semua') {
@@ -174,11 +174,27 @@ export default function AllRecipesPage() {
           </div>
         )}
 
-        <SearchBar
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-          placeholder="Cari resep apa hari ini?"
-        />
+        {/* Search Bar Inline */}
+        <div className="max-w-2xl mx-auto mb-8">
+          <div className="relative">
+            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Cari resep apa hari ini?"
+              className="w-full pl-12 pr-4 py-3 rounded-full border-2 border-gray-200 focus:border-blue-500 focus:outline-none transition-colors"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery('')}
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+              >
+                ✕
+              </button>
+            )}
+          </div>
+        </div>
 
         {filteredRecipes.length > 0 ? (
           <>

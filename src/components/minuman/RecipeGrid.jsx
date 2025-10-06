@@ -1,5 +1,7 @@
 // src/components/minuman/RecipeGrid.jsx
 import { ChefHat } from 'lucide-react';
+import RecipeCard from '../RecipeCard';
+
 
 export default function RecipeGrid({ recipes, onRecipeClick }) {
   if (!recipes || recipes.length === 0) {

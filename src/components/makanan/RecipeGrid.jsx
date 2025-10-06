@@ -1,7 +1,13 @@
 // src/components/makanan/RecipeGrid.jsx
-import { ChefHat,Star } from 'lucide-react';
+import { ChefHat, Heart } from 'lucide-react';
 
-export default function RecipeGrid({ recipes, onRecipeClick }) {
+export default function RecipeGrid({ 
+  recipes, 
+  onRecipeClick,
+  favorites = [], 
+  onToggleFavorite,
+  isFavorite 
+}) {
   if (!recipes || recipes.length === 0) {
     return (
       <div className="text-center py-12">
@@ -12,9 +18,9 @@ export default function RecipeGrid({ recipes, onRecipeClick }) {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {recipes.map((recipe) => (
+      {recipes.map((recipe, index) => (
         <div
-          key={recipe.id}
+          key={recipe.id || index}
           onClick={() => onRecipeClick && onRecipeClick(recipe)}
           className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-1"
         >
@@ -33,6 +39,27 @@ export default function RecipeGrid({ recipes, onRecipeClick }) {
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
             
+            {/* Favorite Button */}
+            {onToggleFavorite && (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onToggleFavorite(recipe);
+                }}
+                className={`absolute top-3 left-3 p-2 rounded-full transition-all duration-300 z-10 ${
+                  isFavorite && isFavorite(recipe)
+                    ? 'bg-red-500 text-white shadow-lg scale-110'
+                    : 'bg-white/90 text-gray-600 hover:bg-red-50 hover:text-red-500'
+                }`}
+                aria-label={isFavorite && isFavorite(recipe) ? 'Hapus dari favorit' : 'Tambah ke favorit'}
+              >
+                <Heart
+                  size={20}
+                  className={isFavorite && isFavorite(recipe) ? 'fill-current' : ''}
+                />
+              </button>
+            )}
+            
             {/* ID Badge */}
             <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full">
               <span className="text-xs font-bold text-gray-700">#{recipe.id}</span>
@@ -48,10 +75,10 @@ export default function RecipeGrid({ recipes, onRecipeClick }) {
             {/* Info Tags */}
             <div className="flex flex-wrap gap-2 mb-4">
               <span className="bg-blue-100 text-blue-700 text-xs font-medium px-2 py-1 rounded">
-                {recipe.ingredients.length} Bahan
+                {recipe.ingredients?.length || 0} Bahan
               </span>
               <span className="bg-green-100 text-green-700 text-xs font-medium px-2 py-1 rounded">
-                {recipe.steps.length} Langkah
+                {recipe.steps?.length || 0} Langkah
               </span>
             </div>
 

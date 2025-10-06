@@ -1,15 +1,20 @@
 // src/main.jsx
-import { StrictMode, useState } from 'react'
-import { createRoot } from 'react-dom/client'
+import { StrictMode, useState } from 'react';
+import { createRoot } from 'react-dom/client';
 import SplashScreen from './pages/SplashScreen';
 import HomePage from './pages/HomePage';
-import MakananPage from './pages/MakananPage';
-import MinumanPage from './pages/MinumanPage';
+import AllRecipesPage from './pages/AllRecipesPage'; // <-- Import halaman gabungan
 import ProfilePage from './pages/ProfilePage';
 import DesktopNavbar from './components/navbar/DesktopNavbar';
 import MobileNavbar from './components/navbar/MobileNavbar';
-import './index.css'
+import './index.css';
 import PWABadge from './PWABadge';
+
+// Hapus import yang tidak perlu jika ada
+// import { ResepMakanan } from './data/makanan';
+// import { ResepMinuman } from './data/minuman';
+// import MakananRecipeGrid from './components/makanan/RecipeGrid';
+// import MinumanRecipeGrid from './components/minuman/RecipeGrid';
 
 function AppRoot() {
   const [showSplash, setShowSplash] = useState(true);
@@ -21,20 +26,19 @@ function AppRoot() {
 
   const handleNavigation = (page) => {
     setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const renderCurrentPage = () => {
     switch (currentPage) {
       case 'home':
-        return <HomePage />;
-      case 'makanan':
-        return <MakananPage />;
-      case 'minuman':
-        return <MinumanPage />;
+        return <HomePage onNavigate={handleNavigation} />;
+      case 'resep': // Ganti 'makanan' dan 'minuman' dengan 'resep'
+        return <AllRecipesPage />;
       case 'profile':
         return <ProfilePage />;
       default:
-        return <HomePage />;
+        return <HomePage onNavigate={handleNavigation} />;
     }
   };
 
@@ -44,17 +48,11 @@ function AppRoot() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Desktop Navbar */}
       <DesktopNavbar currentPage={currentPage} onNavigate={handleNavigation} />
-      
-      {/* Main Content */}
       <main className="min-h-screen">
         {renderCurrentPage()}
       </main>
-      
-      {/* Mobile Navbar */}
       <MobileNavbar currentPage={currentPage} onNavigate={handleNavigation} />
-
       <PWABadge />
     </div>
   );
@@ -64,4 +62,4 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <AppRoot />
   </StrictMode>,
-)
+);

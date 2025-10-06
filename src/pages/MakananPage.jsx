@@ -4,7 +4,7 @@ import { ResepMakanan } from '../data/makanan';
 import RecipeGrid from '../components/makanan/RecipeGrid';
 import SearchBar from '../components/SearchBar';
 import Pagination from '../components/Pagination';
-import DetailPage from './detailPage';
+import DetailPage from './detailPageetailPage';
 
 export default function MakananPage() {
   const [searchQuery, setSearchQuery] = useState('');

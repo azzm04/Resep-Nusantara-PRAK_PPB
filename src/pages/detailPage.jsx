@@ -1,5 +1,19 @@
 // src/pages/DetailPage.jsx
 import { ArrowLeft, ChefHat, BookOpen } from 'lucide-react';
+import PropTypes from 'prop-types';
+
+DetailPage.propTypes = {
+  recipe: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    image_url: PropTypes.string,
+    ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
+    steps: PropTypes.arrayOf(PropTypes.string).isRequired,
+  }),
+  onBack: PropTypes.func.isRequired,
+  type: PropTypes.oneOf(['makanan', 'minuman']),
+};
+
 
 export default function DetailPage({ recipe, onBack, type = 'makanan' }) {
   if (!recipe) {

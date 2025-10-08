@@ -1,6 +1,7 @@
 import { Clock, Star, ChefHat } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom'; // 1. Import hook useNavigate
 
 FeaturedMakananSection.propTypes = {  
   featuredMakanan: PropTypes.arrayOf(PropTypes.shape({
@@ -13,6 +14,10 @@ FeaturedMakananSection.propTypes = {
 };
 
 export default function FeaturedMakananSection({ featuredMakanan }) {
+  const navigate = useNavigate(); // 2. Panggil hook untuk mendapatkan fungsi navigate
+  const handleJelajahiClick = () => {
+    navigate("/resep"); // 3. Gunakan fungsi navigate untuk pindah halaman
+  }
   const [visibleMakanan, setVisibleMakanan] = useState(new Set());
   const makananRefs = useRef([]);
 
@@ -44,7 +49,9 @@ export default function FeaturedMakananSection({ featuredMakanan }) {
     <section>
       <div className="flex items-center justify-between mb-6 md:mb-8">
         <h2 className="text-xl md:text-3xl font-bold text-slate-800">Resep Makanan</h2>
-        <button className="text-slate-500 hover:text-slate-600 font-medium text-xs md:text-sm transition-colors duration-200 hover:underline">
+        <button 
+        onClick={handleJelajahiClick}
+        className="text-slate-500 hover:text-slate-600 font-medium text-xs md:text-sm transition-colors duration-200 hover:underline">
           Lihat Semua
         </button>
       </div>

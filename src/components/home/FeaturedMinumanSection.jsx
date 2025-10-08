@@ -1,6 +1,8 @@
 import { Clock, Star, Coffee } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom'; // 1. Import hook useNavigate
+
 
 FeaturedMinumanSection.propTypes = {
   featuredMinuman: PropTypes.arrayOf(PropTypes.shape({
@@ -13,6 +15,11 @@ FeaturedMinumanSection.propTypes = {
 };
 
 export default function FeaturedMinumanSection({ featuredMinuman }) {
+  const navigate = useNavigate(); // 2. Panggil hook untuk mendapatkan fungsi navigate
+
+  const handleJelajahiClick = () => {
+    navigate("/resep"); // 3. Gunakan fungsi navigate untuk pindah halaman
+  };
   const [visibleMinuman, setVisibleMinuman] = useState(new Set());
   const minumanRefs = useRef([]);
 
@@ -44,7 +51,9 @@ export default function FeaturedMinumanSection({ featuredMinuman }) {
     <section>
       <div className="flex items-center justify-between mb-6 md:mb-8">
         <h2 className="text-xl md:text-3xl font-bold text-slate-800">Resep Minuman</h2>
-        <button className="text-slate-500 hover:text-slate-600 font-medium text-xs md:text-sm transition-colors duration-200 hover:underline">
+        <button 
+        onClick={handleJelajahiClick}
+        className="text-slate-500 hover:text-slate-600 font-medium text-xs md:text-sm transition-colors duration-200 hover:underline">
           Lihat Semua
         </button>
       </div>

@@ -1,9 +1,15 @@
 // src/components/minuman/RecipeGrid.jsx
-import { ChefHat } from 'lucide-react';
-import RecipeCard from '../RecipeCard';
+import { ChefHat, Heart } from 'lucide-react';
+import PropTypes from 'prop-types';
 
-
-export default function RecipeGrid({ recipes, onRecipeClick }) {
+RecipeGrid.propTypes = {
+  recipes: PropTypes.array.isRequired,
+  onRecipeClick: PropTypes.func,
+  favorites: PropTypes.array,
+  onToggleFavorite: PropTypes.func,
+  isFavorite: PropTypes.func,
+};
+export default function RecipeGrid({ recipes, onRecipeClick, onToggleFavorite, isFavorite }) {
   if (!recipes || recipes.length === 0) {
     return (
       <div className="text-center py-12">
@@ -35,6 +41,21 @@ export default function RecipeGrid({ recipes, onRecipeClick }) {
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
             
+            {/* Favorite Button */}
+            {onToggleFavorite && (
+              <button
+                onClick={(e) => { e.stopPropagation(); onToggleFavorite(recipe); }}
+                className={`absolute top-3 left-3 p-2 rounded-full transition-all duration-300 z-10 ${
+                  isFavorite && isFavorite(recipe)
+                    ? 'bg-red-500 text-white shadow-lg scale-110'
+                    : 'bg-white/90 text-gray-600 hover:bg-red-50 hover:text-red-500'
+                }`}
+                aria-label={isFavorite && isFavorite(recipe) ? 'Hapus dari favorit' : 'Tambah ke favorit'}
+              >
+                <Heart size={20} className={isFavorite && isFavorite(recipe) ? 'fill-current' : ''} />
+              </button>
+            )}
+
             {/* ID Badge */}
             <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full">
               <span className="text-xs font-bold text-gray-700">#{recipe.id}</span>

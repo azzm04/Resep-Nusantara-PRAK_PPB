@@ -1,12 +1,18 @@
 // src/components/MobileNavbar.jsx
 
 // --- MODIFIKASI DIMULAI DI SINI ---
-import { Home, BookOpen, User } from 'lucide-react'; // Ganti ikon ChefHat & Coffee
-
+import { Home, BookOpen, User, Heart } from 'lucide-react'; // Ganti ikon ChefHat & Coffee
+import PropTypes from 'prop-types';
+MobileNavbar.propTypes = {
+  currentPage: PropTypes.string.isRequired,
+  onNavigate: PropTypes.func.isRequired,
+};
+// --- MODIFIKASI SELESAI ---
 export default function MobileNavbar({ currentPage, onNavigate }) {
   const navItems = [
     { id: 'home', label: 'Beranda', icon: Home },
     { id: 'resep', label: 'Resep', icon: BookOpen }, // Gabungkan menjadi 'resep' dengan ikon baru
+    { id: 'favorites', label: 'Favorit', icon: Heart },
     { id: 'profile', label: 'Profile', icon: User }
   ];
   // --- MODIFIKASI SELESAI ---

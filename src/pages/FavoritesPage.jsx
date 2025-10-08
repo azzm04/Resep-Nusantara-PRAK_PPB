@@ -3,11 +3,13 @@ import { useState, useEffect } from 'react';
 import { ResepMakanan } from '../data/makanan';
 import { ResepMinuman } from '../data/minuman';
 import RecipeCard from '../components/RecipeCard';
-import SearchBar from '../components/SearchBar';
 import Pagination from '../components/Pagination';
 import DetailPage from './DetailPage';
-import { Heart, ArrowLeft } from 'lucide-react';
-
+import { Heart, ArrowLeft, Search } from 'lucide-react';
+import PropTypes from 'prop-types';
+FavoritesPage.propTypes = {
+  onBack: PropTypes.func,
+};
 // Gabungkan semua resep
 const allMakanan = Object.values(ResepMakanan.resep).map(r => ({ ...r, type: 'makanan' }));
 const allMinuman = Object.values(ResepMinuman.resep).map(r => ({ ...r, type: 'minuman' }));

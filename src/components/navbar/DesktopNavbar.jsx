@@ -13,6 +13,7 @@ export default function DesktopNavbar({ currentPage, onNavigate }) {
   const navItems = [
     { id: 'home', label: 'Beranda' },
     { id: 'resep', label: 'Resep' }, // 'makanan' & 'minuman' digabung menjadi 'resep'
+    { id: 'favorites', label: 'Favorit' },
     { id: 'profile', label: 'Profile' }
   ];
   // --- MODIFIKASI SELESAI ---

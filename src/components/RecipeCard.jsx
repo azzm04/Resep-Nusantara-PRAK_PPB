@@ -1,5 +1,6 @@
 // src/components/RecipeCard.jsx
 import { Clock, ChefHat, Heart } from 'lucide-react';
+import PropTypes from 'prop-types';
 
 export default function RecipeCard({ 
   recipe, 
@@ -9,7 +10,7 @@ export default function RecipeCard({
 }) {
   const handleFavoriteClick = (e) => {
     e.stopPropagation(); // Mencegah trigger onClick card
-    onToggleFavorite(recipe);
+    if (onToggleFavorite) onToggleFavorite(recipe);
   };
 
   return (
@@ -19,11 +20,17 @@ export default function RecipeCard({
     >
       {/* Image Container dengan Favorite Button */}
       <div className="relative h-48 overflow-hidden">
-        <img
-          src={recipe.image}
-          alt={recipe.name}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-        />
+        { (recipe.image || recipe.image_url) ? (
+          <img
+            src={recipe.image || recipe.image_url}
+            alt={recipe.name}
+            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center bg-gray-100">
+            <ChefHat className="w-20 h-20 text-gray-300" />
+          </div>
+        )}
         {/* Favorite Button */}
         <button
           onClick={handleFavoriteClick}
@@ -77,3 +84,10 @@ export default function RecipeCard({
     </div>
   );
 }
+
+RecipeCard.propTypes = {
+  recipe: PropTypes.object.isRequired,
+  onClick: PropTypes.func,
+  isFavorite: PropTypes.bool,
+  onToggleFavorite: PropTypes.func,
+};

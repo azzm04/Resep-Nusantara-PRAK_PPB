@@ -6,7 +6,7 @@ import MakananRecipeGrid from '../components/makanan/RecipeGrid';
 import MinumanRecipeGrid from '../components/minuman/RecipeGrid';
 import Pagination from '../components/Pagination';
 import DetailPage from './DetailPage';
-import { Heart, Search } from 'lucide-react';
+import { Search } from 'lucide-react';
 
 // Gabungkan semua resep menjadi satu array
 const allMakanan = Object.values(ResepMakanan.resep).map(r => ({ ...r, type: 'makanan' }));
@@ -19,36 +19,26 @@ export default function AllRecipesPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [activeFilter, setActiveFilter] = useState('semua'); // 'semua', 'makanan', 'minuman'
   const [filteredRecipes, setFilteredRecipes] = useState(allRecipes);
+  // Favorites are persisted in localStorage and available app-wide
   const [favorites, setFavorites] = useState(() => {
     const saved = localStorage.getItem('favoriteRecipes');
     return saved ? JSON.parse(saved) : [];
   });
-  const [showFavorites, setShowFavorites] = useState(false);
   
   const itemsPerPage = 6;
 
-  // Simpan favorites ke localStorage setiap kali berubah
-  useEffect(() => {
-    localStorage.setItem('favoriteRecipes', JSON.stringify(favorites));
-  }, [favorites]);
+  // (Favorites persistence moved to `FavoritesPage.jsx`)
 
   // Efek untuk memfilter resep berdasarkan tab aktif dan pencarian
   useEffect(() => {
     let recipes = [];
     
-    if (showFavorites) {
-      // Tampilkan hanya resep favorit
-      recipes = allRecipes.filter(recipe => 
-        favorites.some(fav => fav.id === recipe.id && fav.type === recipe.type)
-      );
+    if (activeFilter === 'semua') {
+      recipes = allRecipes;
+    } else if (activeFilter === 'makanan') {
+      recipes = allMakanan;
     } else {
-      if (activeFilter === 'semua') {
-        recipes = allRecipes;
-      } else if (activeFilter === 'makanan') {
-        recipes = allMakanan;
-      } else {
-        recipes = allMinuman;
-      }
+      recipes = allMinuman;
     }
 
     if (searchQuery.trim() !== '') {
@@ -60,21 +50,21 @@ export default function AllRecipesPage() {
     
     setFilteredRecipes(recipes);
     setCurrentPage(1); // Reset ke halaman 1 setiap kali filter berubah
-  }, [searchQuery, activeFilter, favorites, showFavorites]);
+  }, [searchQuery, activeFilter]);
 
-  // Toggle favorite
+  // Favorite actions are handled in the dedicated Favorites page.
+  useEffect(() => {
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favorites));
+  }, [favorites]);
+
   const toggleFavorite = (recipe) => {
     setFavorites(prev => {
-      const isFavorite = prev.some(fav => fav.id === recipe.id && fav.type === recipe.type);
-      if (isFavorite) {
-        return prev.filter(fav => !(fav.id === recipe.id && fav.type === recipe.type));
-      } else {
-        return [...prev, { id: recipe.id, name: recipe.name, type: recipe.type }];
-      }
+      const isFav = prev.some(fav => fav.id === recipe.id && fav.type === recipe.type);
+      if (isFav) return prev.filter(fav => !(fav.id === recipe.id && fav.type === recipe.type));
+      return [...prev, { id: recipe.id, name: recipe.name, type: recipe.type }];
     });
   };
 
-  // Cek apakah resep adalah favorit
   const isFavorite = (recipe) => {
     return favorites.some(fav => fav.id === recipe.id && fav.type === recipe.type);
   };
@@ -107,38 +97,13 @@ export default function AllRecipesPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50 pb-20 md:pb-8">
       <main className="max-w-7xl mx-auto px-4 md:px-8 py-8 md:py-12">
-        <div className="mb-8 text-center">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">
-            {showFavorites ? 'Resep Favoritku' : 'Jelajahi Resep Nusantara'}
-          </h1>
-          <p className="text-gray-600">
-            {showFavorites 
-              ? `${filteredRecipes.length} resep favorit tersimpan`
-              : `Temukan ${filteredRecipes.length} resep makanan dan minuman favoritmu`
-            }
-          </p>
-        </div>
-
-        {/* Tombol Favorites */}
-        <div className="flex justify-center mb-6">
-          <button
-            onClick={() => {
-              setShowFavorites(!showFavorites);
-              setActiveFilter('semua');
-            }}
-            className={`flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all ${
-              showFavorites
-                ? 'bg-red-500 text-white shadow-lg hover:bg-red-600'
-                : 'bg-white text-red-500 border-2 border-red-500 hover:bg-red-50'
-            }`}
-          >
-            <Heart className={showFavorites ? 'fill-current' : ''} size={20} />
-            {showFavorites ? 'Lihat Semua Resep' : `Resep Favorit (${favorites.length})`}
-          </button>
-        </div>
+              <div className="mb-8 text-center">
+                <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">Jelajahi Resep Nusantara</h1>
+                <p className="text-gray-600">Temukan {filteredRecipes.length} resep makanan dan minuman favoritmu</p>
+              </div>
         
-        {/* Tombol Filter - hanya tampil jika tidak dalam mode favorites */}
-        {!showFavorites && (
+        {/* Tombol Filter */}
+        {(
           <div className="flex justify-center gap-2 md:gap-4 mb-8">
             <button 
               onClick={() => setActiveFilter('semua')} 
@@ -215,10 +180,7 @@ export default function AllRecipesPage() {
         ) : (
           <div className="text-center py-12">
             <p className="text-gray-600 text-lg">
-              {showFavorites 
-                ? 'Belum ada resep favorit. Mulai tambahkan resep kesukaanmu!'
-                : `Tidak ada resep yang ditemukan untuk "${searchQuery}"`
-              }
+              {`Tidak ada resep yang ditemukan untuk "${searchQuery}"`}
             </p>
           </div>
         )}

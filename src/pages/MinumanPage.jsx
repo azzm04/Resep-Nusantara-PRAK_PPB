@@ -89,7 +89,7 @@ export default function MinumanPage() {
         ) : (
           <div className="text-center py-12">
             <p className="text-gray-600 text-lg">
-              Tidak ada resep yang ditemukan untuk "{searchQuery}"
+              Tidak ada resep yang ditemukan untuk {searchQuery}
             </p>
           </div>
         )}

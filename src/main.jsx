@@ -1,55 +1,55 @@
 // src/main.jsx
 import { StrictMode, useState } from 'react';
 import { createRoot } from 'react-dom/client';
+import { BrowserRouter, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import SplashScreen from './pages/SplashScreen';
 import HomePage from './pages/HomePage';
-import AllRecipesPage from './pages/AllRecipesPage'; // <-- Import halaman gabungan
+import AllRecipesPage from './pages/AllRecipesPage';
 import ProfilePage from './pages/ProfilePage';
 import DesktopNavbar from './components/navbar/DesktopNavbar';
 import MobileNavbar from './components/navbar/MobileNavbar';
 import './index.css';
 import PWABadge from './PWABadge';
 
-
-function AppRoot() {
-  const [showSplash, setShowSplash] = useState(true);
-  const [currentPage, setCurrentPage] = useState('home');
-
-  const handleSplashComplete = () => {
-    setShowSplash(false);
-  };
+function App() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  
+  const currentPage = location.pathname.substring(1) || 'home';
 
   const handleNavigation = (page) => {
-    setCurrentPage(page);
+    navigate(`/${page === 'home' ? '' : page}`);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
-
-  const renderCurrentPage = () => {
-    switch (currentPage) {
-      case 'home':
-        return <HomePage onNavigate={handleNavigation} />;
-      case 'resep': // Ganti 'makanan' dan 'minuman' dengan 'resep'
-        return <AllRecipesPage />;
-      case 'profile':
-        return <ProfilePage />;
-      default:
-        return <HomePage onNavigate={handleNavigation} />;
-    }
-  };
-
-  if (showSplash) {
-    return <SplashScreen onComplete={handleSplashComplete} />;
-  }
 
   return (
     <div className="min-h-screen bg-gray-50">
       <DesktopNavbar currentPage={currentPage} onNavigate={handleNavigation} />
       <main className="min-h-screen">
-        {renderCurrentPage()}
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/resep" element={<AllRecipesPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+        </Routes>
       </main>
       <MobileNavbar currentPage={currentPage} onNavigate={handleNavigation} />
       <PWABadge />
     </div>
+  );
+}
+
+function AppRoot() {
+  const [showSplash, setShowSplash] = useState(true);
+
+  if (showSplash) {
+    return <SplashScreen onComplete={() => setShowSplash(false)} />;
+  }
+
+  // Bungkus komponen App dengan BrowserRouter untuk mengaktifkan routing
+  return (
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   );
 }
 

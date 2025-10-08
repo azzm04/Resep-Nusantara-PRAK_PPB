@@ -1,5 +1,12 @@
 // src/components/DesktopNavbar.jsx
 import logoUrl from '../../assets/LOGORN.png';
+import PropTypes from 'prop-types';
+
+
+DesktopNavbar.propTypes = { 
+  currentPage: PropTypes.string.isRequired,
+  onNavigate: PropTypes.func.isRequired,
+};
 
 export default function DesktopNavbar({ currentPage, onNavigate }) {
   // --- MODIFIKASI DIMULAI DI SINI ---

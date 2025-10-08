@@ -1,4 +1,5 @@
 // src/components/SearchBar.jsx
+import PropTypes from 'prop-types';
 import { Search, X } from 'lucide-react';
 
 export default function SearchBar({ searchQuery, setSearchQuery, placeholder = "Cari resep disini..." }) {
@@ -31,10 +32,16 @@ export default function SearchBar({ searchQuery, setSearchQuery, placeholder = "
         
         {searchQuery && (
           <div className="mt-2 text-sm text-gray-600 text-center">
-            Mencari: <span className="font-semibold text-gray-800">"{searchQuery}"</span>
+            Mencari: <span className="font-semibold text-gray-800">&quot;{searchQuery}&quot;</span>
           </div>
         )}
       </div>
     </div>
   );
 }
+
+SearchBar.propTypes = {
+  searchQuery: PropTypes.string.isRequired,
+  setSearchQuery: PropTypes.func.isRequired,
+  placeholder: PropTypes.string,
+};

@@ -75,7 +75,8 @@ export default function HeroSection() {
         <div className="flex flex-col space-y-3 max-w-xs mx-auto">
           <button className="bg-gradient-to-r from-blue-600 to-blue-500 text-white px-6 py-3 rounded-2xl font-semibold shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2 text-sm">
             <ChefHat className="w-4 h-4" />
-            <span>Jelajahi Resep</span>
+            
+            <span >Jelajahi Resep</span>
           </button>
           <button className="bg-white/25 backdrop-blur-xl border border-white/40 text-slate-700 px-6 py-3 rounded-2xl font-semibold shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2 text-sm">
             <Play className="w-4 h-4" />

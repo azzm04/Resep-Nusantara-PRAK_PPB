@@ -4,10 +4,9 @@ import { ResepMakanan } from '../data/makanan';
 import { ResepMinuman } from '../data/minuman';
 import MakananRecipeGrid from '../components/makanan/RecipeGrid';
 import MinumanRecipeGrid from '../components/minuman/RecipeGrid';
-import SearchBar from '../components/SearchBar';
 import Pagination from '../components/Pagination';
 import DetailPage from './DetailPage';
-import { Heart } from 'lucide-react';
+import { Heart, Search } from 'lucide-react';
 
 // Gabungkan semua resep menjadi satu array
 const allMakanan = Object.values(ResepMakanan.resep).map(r => ({ ...r, type: 'makanan' }));

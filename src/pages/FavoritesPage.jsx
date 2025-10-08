@@ -25,7 +25,7 @@ export default function FavoritesPage({ onBack }) {
   });
   const [filteredRecipes, setFilteredRecipes] = useState([]);
   
-  const itemsPerPage = 6;
+  const itemsPerPage = 3;
 
   // Update localStorage setiap kali favorites berubah
   useEffect(() => {

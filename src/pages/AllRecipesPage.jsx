@@ -25,7 +25,7 @@ export default function AllRecipesPage() {
     return saved ? JSON.parse(saved) : [];
   });
   
-  const itemsPerPage = 6;
+  const itemsPerPage = 3;
 
   // (Favorites persistence moved to `FavoritesPage.jsx`)
 

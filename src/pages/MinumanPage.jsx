@@ -11,7 +11,7 @@ export default function MinumanPage() {
   const [filteredRecipes, setFilteredRecipes] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedRecipe, setSelectedRecipe] = useState(null);
-  const itemsPerPage = 6;
+  const itemsPerPage = 3;
 
   const allMinuman = Object.values(ResepMinuman.resep);
 

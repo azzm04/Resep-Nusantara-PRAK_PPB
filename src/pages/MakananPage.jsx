@@ -11,7 +11,7 @@ export default function MakananPage() {
   const [filteredRecipes, setFilteredRecipes] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedRecipe, setSelectedRecipe] = useState(null);
-  const itemsPerPage = 6;
+  const itemsPerPage = 3;
 
   const allMakanan = Object.values(ResepMakanan.resep);
 
@@ -89,7 +89,7 @@ export default function MakananPage() {
         ) : (
           <div className="text-center py-12">
             <p className="text-gray-600 text-lg">
-              Tidak ada resep yang ditemukan untuk "{searchQuery}"
+              Tidak ada resep yang ditemukan untuk {searchQuery}
             </p>
           </div>
         )}

@@ -4,7 +4,7 @@ import { ResepMinuman } from '../data/minuman';
 import RecipeGrid from '../components/minuman/RecipeGrid';
 import SearchBar from '../components/SearchBar';
 import Pagination from '../components/Pagination';
-import DetailPage from './DetailPage';
+import DetailPage from './DetailPage.jsx';
 
 export default function MinumanPage() {
   const [searchQuery, setSearchQuery] = useState('');

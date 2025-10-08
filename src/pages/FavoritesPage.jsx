@@ -4,7 +4,7 @@ import { ResepMakanan } from '../data/makanan';
 import { ResepMinuman } from '../data/minuman';
 import RecipeCard from '../components/RecipeCard';
 import Pagination from '../components/Pagination';
-import DetailPage from './DetailPage';
+import DetailPage from './DetailPage.jsx';
 import { Heart, ArrowLeft, Search } from 'lucide-react';
 import PropTypes from 'prop-types';
 FavoritesPage.propTypes = {

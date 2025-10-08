@@ -2,13 +2,13 @@
 import { StrictMode, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
-import SplashScreen from './pages/SplashScreen';
-import HomePage from './pages/HomePage';
-import AllRecipesPage from './pages/AllRecipesPage';
-import FavoritesPage from './pages/FavoritesPage';
-import ProfilePage from './pages/ProfilePage';
-import DesktopNavbar from './components/navbar/DesktopNavbar';
-import MobileNavbar from './components/navbar/MobileNavbar';
+import SplashScreen from './pages/SplashScreen.jsx';
+import HomePage from './pages/HomePage.jsx';
+import AllRecipesPage from './pages/AllRecipesPage.jsx';
+import FavoritesPage from './pages/FavoritesPage.jsx';
+import ProfilePage from './pages/ProfilePage.jsx';
+import DesktopNavbar from './components/navbar/DesktopNavbar.jsx';
+import MobileNavbar from './components/navbar/MobileNavbar.jsx';
 import './index.css';
 import PWABadge from './PWABadge';
 

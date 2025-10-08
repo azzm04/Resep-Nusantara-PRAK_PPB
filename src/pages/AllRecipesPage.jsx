@@ -5,7 +5,7 @@ import { ResepMinuman } from '../data/minuman';
 import MakananRecipeGrid from '../components/makanan/RecipeGrid';
 import MinumanRecipeGrid from '../components/minuman/RecipeGrid';
 import Pagination from '../components/Pagination';
-import DetailPage from './DetailPage';
+import DetailPage from './DetailPage.jsx';
 import { Search } from 'lucide-react';
 
 // Gabungkan semua resep menjadi satu array

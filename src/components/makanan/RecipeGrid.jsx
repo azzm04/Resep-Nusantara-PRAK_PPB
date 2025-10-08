@@ -1,11 +1,19 @@
 // src/components/makanan/RecipeGrid.jsx
 import { ChefHat, Heart } from 'lucide-react';
+import PropTypes from 'prop-types';
+
+RecipeGrid.propTypes = {
+  recipes: PropTypes.array.isRequired,
+  onRecipeClick: PropTypes.func,
+  favorites: PropTypes.array,
+  onToggleFavorite: PropTypes.func,
+  isFavorite: PropTypes.func,
+};
 
 export default function RecipeGrid({ 
   recipes, 
   onRecipeClick,
-  favorites = [], 
-  onToggleFavorite,
+  onToggleFavorite, 
   isFavorite 
 }) {
   if (!recipes || recipes.length === 0) {
